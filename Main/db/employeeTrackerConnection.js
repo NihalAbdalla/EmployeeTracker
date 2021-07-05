@@ -8,6 +8,14 @@ const connection = mysql.createConnection({
     database: 'employeeTracker_db',
   });
   
+  const afterConnection = () => {
+    connection.query('SELECT * FROM songs', (err, res) => {
+      if (err) throw err;
+      console.log(res);
+      connection.end();
+    });
+  };
+
   connection.connect((err) => {
     if (err) throw err;
     console.log(`connected as id ${connection.threadId}`);
@@ -15,3 +23,4 @@ const connection = mysql.createConnection({
   });
   
   module.exports = connection;
+  module.exports = afterConnection;
